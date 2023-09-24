@@ -32,7 +32,7 @@ def process_detect_face(face_locations, face_encodings):
                 idx_same_name = recognized_names.index(name)
                 if match_percentage > recognized_percent[idx_same_name]:
                     #แก้ไขอันชื่อเก่าเป็น unknown
-                    recognized_names[idx_same_name] = "unknown"
+                    recognized_names[idx_same_name] = "Unknown"
                     recognized_percent[idx_same_name] = 0
                     
                     #เพิ่มใบหน้าใหม่
@@ -40,11 +40,11 @@ def process_detect_face(face_locations, face_encodings):
                     recognized_infos.append((top, right, bottom, left))
                     recognized_percent.append(match_percentage)
                 else:
-                    recognized_names = "unknown"
+                    recognized_names.append("Unknown")
                     recognized_infos.append((top, right, bottom, left))
                     recognized_percent.append(0)
         else:
-            recognized_names = "unknown"
+            recognized_names.append("Unknown")
             recognized_infos.append((top, right, bottom, left))
             recognized_percent.append(0)
     

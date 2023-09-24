@@ -34,7 +34,7 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
 
     cv.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 1)
 
-    if match_percentage > 50:
+    if match_percentage > 60:
         if name not in recognized_names:
             recognized_names.append(name)
             recognized_infos.append((top, right, bottom, left))
@@ -43,7 +43,7 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
             idx_same_name = recognized_names.index(name)
             if match_percentage > recognized_percent[idx_same_name]:
                 #แก้ไขอันชื่อเก่าเป็น unknown
-                recognized_names[idx_same_name] = "unknown"
+                recognized_names[idx_same_name] = "Unknown"
                 recognized_percent[idx_same_name] = 0
                 
                 #เพิ่มใบหน้าใหม่
@@ -51,11 +51,11 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
                 recognized_infos.append((top, right, bottom, left))
                 recognized_percent.append(match_percentage)
             else:
-                recognized_names = "unknown"
+                recognized_names.append("Unknown")
                 recognized_infos.append((top, right, bottom, left))
                 recognized_percent.append(0)
     else:
-        recognized_names = "unknown"
+        recognized_names.append("Unknown")
         recognized_infos.append((top, right, bottom, left))
         recognized_percent.append(0)
 
