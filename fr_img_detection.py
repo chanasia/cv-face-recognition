@@ -34,7 +34,7 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
 
     cv.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 1)
 
-    if match_percentage > 60:
+    if match_percentage > 50:
         if name not in recognized_names:
             recognized_names.append(name)
             recognized_infos.append((top, right, bottom, left))
