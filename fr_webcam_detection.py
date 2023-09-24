@@ -5,7 +5,7 @@ import face_recognition as fr
 import concurrent.futures
 
 # Load known faces from the pickle file
-known_face_names, known_face_encodings = pickle.load(open('faces.p', 'rb'))
+known_face_names, known_face_encodings = pickle.load(open('models/faces.p', 'rb'))
 
 def process_detect_face(face_locations, face_encodings):
     recognized_names = []
