@@ -3,4 +3,4 @@ converttojpg.py
 image.jpg
 __pycache__
 convert
-models
+models/*

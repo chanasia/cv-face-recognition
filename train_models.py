@@ -24,4 +24,4 @@ for face_info in list_known_faces:
     else:
         print(f"No face detected in {path_filename}")
 
-pickle.dump((known_face_names, known_face_encodings), open('faces.p', 'wb')) # save model
+pickle.dump((known_face_names, known_face_encodings), open('models/faces.p', 'wb')) # save model
