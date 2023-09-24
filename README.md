@@ -3,7 +3,7 @@
 To use this program on Windows, you need to install the following software:
 
 1. [CMake](https://github.com/Kitware/CMake/releases/download/v3.27.6/cmake-3.27.6-windows-x86_64.msi)
-2. [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), and select "desktop development with C++."
+2. [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), and select "desktop development with C++"
 3. Python 3.11.4
 
 After installing the necessary software, install the required libraries using the following command:
