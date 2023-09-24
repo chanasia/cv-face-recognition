@@ -1,14 +1,15 @@
 import pickle
 import cv2 as cv
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
 import face_recognition as fr
+from tkinter.filedialog import askopenfilename
 
 # Load known faces from the pickle file
-known_face_names, known_face_encodings = pickle.load(open('faces.p', 'rb'))
+known_face_names, known_face_encodings = pickle.load(open('models/faces.p', 'rb'))
 
 # Load the input image using OpenCV
-image = cv.imread('blackpink.jpg')
+load_image = askopenfilename()
+image = cv.imread(load_image)
 
 # Convert the image from BGR to RGB
 image_rgb = cv.cvtColor(image, cv.COLOR_BGR2RGB)
