@@ -3,6 +3,9 @@ import pickle
 import face_recognition as fr
 import numpy as np
 
+if not os.path.exists("models"):
+    os.makedirs("models")
+
 list_known_faces = []
 
 for person in os.listdir("known_faces"):
