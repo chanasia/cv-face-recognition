@@ -14,7 +14,7 @@ image = cv.imread('blackpink.jpg')
 image_rgb = cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
 # Detect faces using OpenCV
-face_locations = fr.face_locations(image_rgb)
+face_locations = fr.face_locations(image_rgb, model="hog")
 face_encodings = fr.face_encodings(image_rgb, face_locations)
 
 recognized_names = []
@@ -61,7 +61,7 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
 for name, positions, percent in zip(recognized_names, recognized_infos, recognized_percent):
     # Draw a rectangle around the detected face
     top, right, bottom, left = positions
-    percent_text = "" if percent == 0 else f" ({percent:.2f}%)"
+    percent_text = "" if percent == 0 else f" ({percent:.1f}%)"
     text = f"{name}{percent_text}"
     cv.putText(image, text, (left, top - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 

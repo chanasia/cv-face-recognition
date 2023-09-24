@@ -76,7 +76,7 @@ while True:
     frame_rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # Detect faces using face_recognition
-    face_locations = fr.face_locations(frame_rgb)
+    face_locations = fr.face_locations(frame_rgb, model="hog")
     face_encodings = fr.face_encodings(frame_rgb, face_locations)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
