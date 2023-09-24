@@ -17,12 +17,9 @@ image_rgb = cv.cvtColor(image, cv.COLOR_BGR2RGB)
 face_locations = fr.face_locations(image_rgb)
 face_encodings = fr.face_encodings(image_rgb, face_locations)
 
-# Create an image object for drawing
-image_pil = Image.fromarray(image_rgb)
-draw = ImageDraw.Draw(image_pil)
-font = ImageFont.truetype("arial.ttf", 10)
-
-recogined_info = []
+recognized_names = []
+recognized_infos = []
+recognized_percent = []
 
 # Iterate through detected faces
 for face_encoding, face_location in zip(face_encodings, face_locations):
@@ -34,12 +31,38 @@ for face_encoding, face_location in zip(face_encodings, face_locations):
     match_percentage = (1 - face_distances[best_match_index]) * 100
     name = known_face_names[best_match_index]
 
-    # Draw a rectangle around the detected face
     cv.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 1)
 
-    name = known_face_names[best_match_index]
+    if match_percentage > 50:
+        if name not in recognized_names:
+            recognized_names.append(name)
+            recognized_infos.append((top, right, bottom, left))
+            recognized_percent.append(match_percentage)
+        else:
+            idx_same_name = recognized_names.index(name)
+            if match_percentage > recognized_percent[idx_same_name]:
+                #แก้ไขอันชื่อเก่าเป็น unknown
+                recognized_names[idx_same_name] = "unknown"
+                recognized_percent[idx_same_name] = 0
+                
+                #เพิ่มใบหน้าใหม่
+                recognized_names.append(name)
+                recognized_infos.append((top, right, bottom, left))
+                recognized_percent.append(match_percentage)
+            else:
+                recognized_names = "unknown"
+                recognized_infos.append((top, right, bottom, left))
+                recognized_percent.append(0)
+    else:
+        recognized_names = "unknown"
+        recognized_infos.append((top, right, bottom, left))
+        recognized_percent.append(0)
 
-    text = f"{name} ({match_percentage:.2f}%)"
+for name, positions, percent in zip(recognized_names, recognized_infos, recognized_percent):
+    # Draw a rectangle around the detected face
+    top, right, bottom, left = positions
+    percent_text = "" if percent == 0 else f" ({percent:.2f}%)"
+    text = f"{name}{percent_text}"
     cv.putText(image, text, (left, top - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
 # Display the modified image with OpenCV
