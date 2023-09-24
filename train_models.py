@@ -18,7 +18,7 @@ known_face_encodings = []
 for face_info in list_known_faces:
     path_filename = os.path.join("known_faces", face_info[0], face_info[1])
     face_image = fr.load_image_file(path_filename)
-    face_encodings = fr.face_encodings(face_image)
+    face_encodings = fr.face_encodings(face_image, model="cnn")
 
     # Ensure that at least one face encoding was computed for the image
     if face_encodings:
